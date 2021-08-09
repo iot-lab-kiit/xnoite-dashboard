@@ -27,11 +27,6 @@
                 <i class="ni ni-bell-55"></i>
               </a>
             </template>
-
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
           </base-dropdown>
           <base-dropdown class="nav-item" position="right">
             <template v-slot:title>
@@ -54,14 +49,14 @@
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </router-link>
-            <router-link to="/profile" class="dropdown-item">
+            <!-- <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-settings-gear-65"></i>
               <span>Settings</span>
             </router-link>
             <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-calendar-grid-58"></i>
               <span>Activity</span>
-            </router-link>
+            </router-link> -->
             <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-support-16"></i>
               <span>Support</span>
@@ -98,11 +93,9 @@
         <ul class="navbar-nav">
           <slot name="links"> </slot>
         </ul>
-        <!--Divider-->
+        <!-- 
         <hr class="my-3" />
-        <!--Heading-->
         <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!--Navigation-->
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a
@@ -128,7 +121,7 @@
               <i class="ni ni-ui-04"></i> Components
             </a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </nav>
@@ -144,7 +137,7 @@ export default {
   props: {
     logo: {
       type: String,
-      default: "img/brand/logo.png",
+      default: "img/brand/green.png",
       description: "Sidebar app logo",
     },
     autoClose: {

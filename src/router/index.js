@@ -11,6 +11,8 @@ import Tables from "../views/Tables.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 
+import Stock from "../views/Stocks.vue";
+
 const routes = [
   {
     path: "/",
@@ -23,9 +25,9 @@ const routes = [
         components: { default: Dashboard },
       },
       {
-        path: "/icons",
-        name: "icons",
-        components: { default: Icons },
+        path: "/stock",
+        name: "stock",
+        components: { default: Stock },
       },
       {
         path: "/profile",

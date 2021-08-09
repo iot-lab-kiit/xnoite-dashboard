@@ -73,12 +73,12 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <projects-table title="Light Table"></projects-table>
+          <ProjectsTable title="Light Table"></ProjectsTable>
         </div>
       </div>
       <div class="row mt-5">
         <div class="col">
-          <projects-table type="dark" title="Dark Table"></projects-table>
+          <ProjectsTable type="dark" title="Dark Table"></ProjectsTable>
         </div>
       </div>
     </div>

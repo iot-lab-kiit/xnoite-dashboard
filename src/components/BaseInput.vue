@@ -12,7 +12,7 @@
     ]"
   >
     <slot name="label">
-      <label v-if="label" class="form-control-label" :class="labelClasses">
+      <label v-if="label" class="form-control-label text-white" :class="labelClasses">
         {{ label }}
         <span v-if="required">*</span>
       </label>

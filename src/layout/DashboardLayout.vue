@@ -13,12 +13,11 @@
             path: '/dashboard',
           }"
         />
-
         <sidebar-item
           :link="{
-            name: 'Icons',
-            icon: 'ni ni-planet text-blue',
-            path: '/icons',
+            name: 'Stock',
+            icon: 'ni ni-money-coins text-primary',
+            path: '/stock',
           }"
         />
         <sidebar-item

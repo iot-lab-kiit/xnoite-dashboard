@@ -2,6 +2,7 @@
   <base-nav
     class="navbar-top navbar-dark"
     id="navbar-main"
+    :show-toggle-button="false"
     expand
   >
     <form
@@ -40,14 +41,14 @@
             <i class="ni ni-single-02"></i>
             <span>My profile</span>
           </router-link>
-          <router-link to="/profile" class="dropdown-item">
+          <!-- <router-link to="/profile" class="dropdown-item">
             <i class="ni ni-settings-gear-65"></i>
             <span>Settings</span>
           </router-link>
           <router-link to="/profile" class="dropdown-item">
             <i class="ni ni-calendar-grid-58"></i>
             <span>Activity</span>
-          </router-link>
+          </router-link> -->
           <router-link to="/profile" class="dropdown-item">
             <i class="ni ni-support-16"></i>
             <span>Support</span>
