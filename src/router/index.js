@@ -4,14 +4,12 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
-import Icons from "../views/Icons.vue";
 import Profile from "../views/UserProfile.vue";
 import Tables from "../views/Tables.vue";
-
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-
 import Stock from "../views/Stocks.vue";
+import store from '../store/index'
 
 const routes = [
   {
@@ -64,6 +62,12 @@ const router = createRouter({
   history: createWebHashHistory(),
   linkActiveClass: "active",
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if(store.state.token === "" && to.fullPath !== "/login" && to.fullPath !== "/signup"){
+    next('/login');
+  }else next();
 });
 
 export default router;

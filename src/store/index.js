@@ -5,6 +5,7 @@ export default createStore({
     showSidebar: true,
     sidebarLinks: [],
     isMinimized: false,
+    token:""
   },
   mutations: {    
     initializeStore(state) {
@@ -13,6 +14,19 @@ export default createStore({
       } else {
         state.showSidebar = true
       }
+      if (localStorage.getItem('token')) {
+        state.token = localStorage.getItem('token');
+      } else {
+        state.token = '';
+      }
+    },
+    setToken(state, token) {
+      state.token = token
+      state.isAuthenticated = true
+    },
+    removeToken(state) {
+      state.token = ''
+      state.isAuthenticated = false
     },
     displaySidebar(state,value) {
       localStorage.setItem('showSidebar', value);

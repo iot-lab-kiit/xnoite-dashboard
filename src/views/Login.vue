@@ -2,54 +2,61 @@
   <div class="row justify-content-center">
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
-        <div class="card-header bg-transparent pb-5">
-          <div class="text-muted text-center mt-2 mb-3">
-            <small>Sign in with</small>
-          </div>
-          <div class="btn-wrapper text-center">
-            <a href="#" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"
-                ><img src="img/icons/common/github.svg"
-              /></span>
-              <span class="btn-inner--text">Github</span>
-            </a>
-            <a href="#" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"
-                ><img src="img/icons/common/google.svg"
-              /></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div>
-        </div>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
-            <small>Or sign in with credentials</small>
+            <h1>Sign In</h1>
           </div>
           <form role="form">
-            <base-input
-              formClasses="input-group-alternative mb-3"
-              placeholder="Email"
-              addon-left-icon="ni ni-email-83"
-              v-model="model.email"
-            >
-            </base-input>
+            <div class="form-group input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="ni ni-email-83"></i>
+                </div>
+              </div>
+              <input
+                v-model="email"
+                placeholder="Email"
+                class="form-control"
+                aria-describedby="addon-right addon-left"
+              />
+            </div>
 
-            <base-input
-              formClasses="input-group-alternative mb-3"
-              placeholder="Password"
-              type="password"
-              addon-left-icon="ni ni-lock-circle-open"
-              v-model="model.password"
-            >
-            </base-input>
-
-            <base-checkbox class="custom-control-alternative">
-              <span class="text-muted">Remember me</span>
-            </base-checkbox>
+            <div class="form-group input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="ni ni-lock-circle-open"></i>
+                </div>
+              </div>
+              <input
+                v-model="password"
+                placeholder="Password"
+                class="form-control"
+                aria-describedby="addon-right addon-left"
+              />
+            </div>
             <div class="text-center">
-              <base-button type="primary" class="my-4">Sign in</base-button>
+              <base-button type="primary" class="my-4" v-on:click="signin"
+                >Sign in</base-button
+              >
             </div>
           </form>
+        </div>
+      </div>
+      <br />
+      <Spinner v-show="loading"></Spinner>
+      <div v-if="errors.length">
+        <div
+          class="alert alert-danger"
+          role="alert"
+          v-for="error in errors"
+          v-bind:key="error"
+        >
+          {{ error }}
+        </div>
+      </div>
+      <div v-if="success">
+        <div class="alert alert-success" role="alert">
+          {{ signupMessage }}
         </div>
       </div>
       <div class="row mt-3">
@@ -62,19 +69,73 @@
           >
         </div>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
+import Spinner from "../components/Spinner.vue";
 export default {
   name: "login",
+  components: { Spinner },
   data() {
     return {
-      model: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
+      errors: [],
+      success: false,
+      signupMessage: "",
+      loading: false,
     };
+  },
+  methods: {
+    async signin() {
+      this.loading = true;
+      this.errors = [];
+      if (this.email === "") {
+        this.errors.push("The email is missing");
+        this.loading = false;
+      }
+      if (this.password === "") {
+        this.errors.push("The password is missing");
+        this.loading = false;
+      }
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      if (!this.errors.length) {
+        await axios
+          .post("/auth/signin", formData)
+          .then((Response) => {
+            this.signupMessage = Response.data.message;
+            this.success = true;
+            const token = Response.data.token;
+            this.$store.commit("setToken", token);
+            axios.defaults.headers.common["auth-token"] = token;
+            localStorage.setItem("token", token);
+            localStorage.setItem("userid", Response.data.user);
+            setTimeout(() => this.$router.push({ path: "/" }), 500);
+            this.loading = false;
+          })
+          .catch((err) => {
+            console.log(err);
+            if (err.message.includes("301")) {
+              this.errors.push("Incorrect email");
+            } else if (err.message.includes("302")) {
+              this.errors.push("Incorrect password");
+            } else this.errors.push("Server down!!");
+            this.loading = false;
+          });
+      }
+    },
   },
 };
 </script>
