@@ -9,7 +9,7 @@
         <sidebar-item
           :link="{
             name: 'Dashboard',
-            icon: 'ni ni-tv-2 text-primary',
+            icon: 'ni ni-tv-2 text-info',
             path: '/dashboard',
           }"
         />
@@ -22,12 +22,26 @@
         />
         <sidebar-item
           :link="{
+            name: 'Crypto',
+            icon: 'ni ni-credit-card text-danger',
+            path: '/stock',
+          }"
+        />
+        <sidebar-item
+          :link="{
+            name: 'News',
+            icon: 'ni ni-single-copy-04 text-success',
+            path: '/stock',
+          }"
+        />
+        <!-- <sidebar-item
+          :link="{
             name: 'User Profile',
             icon: 'ni ni-single-02 text-yellow',
             path: '/profile',
           }"
-        />
-        <sidebar-item
+        /> -->
+        <!-- <sidebar-item
           :link="{
             name: 'Tables',
             icon: 'ni ni-bullet-list-67 text-red',
@@ -47,7 +61,7 @@
             icon: 'ni ni-circle-08 text-pink',
             path: '/register',
           }"
-        />
+        /> -->
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

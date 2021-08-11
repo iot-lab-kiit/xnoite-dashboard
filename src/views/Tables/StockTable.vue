@@ -30,9 +30,9 @@
           <tr v-for="(item, index) in tableData" :key="index">
             <th scope="row">
               <div class="media align-items-center">
-                <a href="#" class="avatar rounded-circle mr-3">
+                <!-- <a href="#" class="avatar rounded-circle mr-3">
                   <img alt="Image placeholder" :src="item.img" />
-                </a>
+                </a> -->
                 <div class="media-body">
                   <span class="name mb-0 text-sm">{{ item.title }}</span>
                 </div>
@@ -71,7 +71,9 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                 </template>
-                  <a class="dropdown-item" @click="pp(item.budget)" >Expire Now!</a>
+                <a class="dropdown-item" @click="pp(item.budget)"
+                  >Expire Now!</a
+                >
               </base-dropdown>
             </td>
           </tr>
@@ -83,7 +85,7 @@
       class="card-footer d-flex justify-content-end"
       :class="type === 'dark' ? 'bg-transparent' : ''"
     >
-      <base-pagination :pageCount=3 :perPage=5 :value=2></base-pagination>
+      <base-pagination :pageCount="3" :perPage="5" :value="2"></base-pagination>
     </div>
   </div>
 </template>
@@ -97,12 +99,14 @@ export default {
     title: String,
   },
   methods: {
-    pp(e){
+    pp(e) {
       console.log(e);
-    }
+    },
   },
   data() {
     return {
+      currentStockList: [],
+      pastStockList: [],
       tableData: [
         {
           img: "img/theme/bootstrap.jpg",
@@ -147,6 +151,19 @@ export default {
       ],
     };
   },
+  methods: {
+    getCurrentStocksByCount(skip=0, limit=10){
+      const currdate = new Date();
+      const date = currdate.getDate()+"-"+currdate.getMonth()+"-"+currdate.getDate();
+    },
+    getPastStocksByCount(skip=0, limit=10){
+      const currdate = new Date();
+      const date = currdate.getDate()+"-"+currdate.getMonth()+"-"+currdate.getDate();
+    }
+  },
+  beforeMount() {
+    this.getCurrentStocksByCount();
+  }
 };
 </script>
 <style></style>

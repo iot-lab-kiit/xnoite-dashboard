@@ -13,25 +13,24 @@
             <div class="form-group mb-0">
               <h2 class="text-white">Add Stock Call</h2>
               <br />
-              <base-input label="Select Company"
-                ><select
-                  class="custom-select"
-                  id="inputGroupSelect01"
-                  v-model="company"
-                >
-                  <option selected>Choose Company ...</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </base-input>
+              <div class="form-group">
+                  <label for="Stop" class="form-control-label text-white"
+                    >Select Company</label
+                  >
+                  <input
+                    type="string"
+                    class="form-control"
+                    id="Stop"
+                    v-model="company"
+                  />
+                </div>
               <base-input label="Select Call Type"
                 ><select
                   class="custom-select"
                   id="inputGroupSelect02"
                   v-model="callType"
                 >
-                  <option selected>Choose Company ...</option>
+                  <option selected value="1">Choose Call Type ...</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>

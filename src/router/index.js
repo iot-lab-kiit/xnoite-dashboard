@@ -5,7 +5,6 @@ import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
 import Profile from "../views/UserProfile.vue";
-import Tables from "../views/Tables.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Stock from "../views/Stocks.vue";
@@ -28,14 +27,19 @@ const routes = [
         components: { default: Stock },
       },
       {
+        path: "/crypto",
+        name: "crypto",
+        components: { default: Stock },
+      },
+      {
+        path: "/news",
+        name: "news",
+        components: { default: Stock },
+      },
+      {
         path: "/profile",
         name: "profile",
         components: { default: Profile },
-      },
-      {
-        path: "/tables",
-        name: "tables",
-        components: { default: Tables },
       },
     ],
   },
