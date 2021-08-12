@@ -8,6 +8,8 @@ import Profile from "../views/UserProfile.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Stock from "../views/Stocks.vue";
+import News from "../views/News.vue";
+import Crypto from "../views/Crypto.vue";
 import store from '../store/index'
 
 const routes = [
@@ -29,12 +31,12 @@ const routes = [
       {
         path: "/crypto",
         name: "crypto",
-        components: { default: Stock },
+        components: { default: Crypto },
       },
       {
         path: "/news",
         name: "news",
-        components: { default: Stock },
+        components: { default: News },
       },
       {
         path: "/profile",
@@ -69,9 +71,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if(store.state.token === "" && to.fullPath !== "/login" && to.fullPath !== "/signup"){
-    next('/login');
-  }else next();
+  if (store.state.token === "" && to.fullPath !== "/login" && to.fullPath !== "/register") {
+    next('/login')
+  } else next();
 });
 
 export default router;

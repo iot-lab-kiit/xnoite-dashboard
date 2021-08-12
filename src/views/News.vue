@@ -14,24 +14,26 @@
               <h2 class="text-white">Add Stock Call</h2>
               <br />
               <div class="form-group">
-                <label for="Stop" class="form-control-label text-white"
-                  >Select Company</label
-                >
-                <input
-                  type="string"
-                  class="form-control"
-                  id="Stop"
-                  v-model="company"
-                />
-              </div>
+                  <label for="Stop" class="form-control-label text-white"
+                    >Select Company</label
+                  >
+                  <input
+                    type="string"
+                    class="form-control"
+                    id="Stop"
+                    v-model="company"
+                  />
+                </div>
               <base-input label="Select Call Type"
                 ><select
                   class="custom-select"
                   id="inputGroupSelect02"
                   v-model="callType"
                 >
-                  <option value="Intraday">Intraday</option>
-                  <option value="Swing">Swing</option>
+                  <option selected value="1">Choose Call Type ...</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
                 </select>
               </base-input>
               <div class="form-row">
@@ -81,8 +83,6 @@
                 >Create Call</base-button
               >
             </div>
-
-            <Spinner v-show="loading"></Spinner>
           </card>
         </div>
       </div>
@@ -93,14 +93,12 @@
           <StockTable
             type="dark"
             title="Current Calls (For Tommorow) "
-            :tableNo=0
           ></StockTable>
         </div>
       </div>
       <div class="row mt-5">
         <div class="col">
-          <StockTable type="dark" title="Past Calls"
-            :tableNo=1></StockTable>
+          <StockTable type="dark" title="Past Calls"></StockTable>
         </div>
       </div>
     </div>
@@ -109,13 +107,10 @@
 
 <script>
 import StockTable from "./Tables/StockTable.vue";
-import axios from "axios";
-import Spinner from "../components/Spinner.vue";
 export default {
-  name: "Stock",
+  name: "News",
   components: {
     StockTable,
-    Spinner,
   },
   data() {
     return {
@@ -125,29 +120,16 @@ export default {
       target: 0.0,
       stopLoss: 0.0,
       date: "",
-      loading: false,
     };
   },
   methods: {
-    async createCall() {
-      this.loading = true;
-      const formData = {
-        companyName: this.company,
-        callType: this.callType,
-        price: this.price,
-        target: this.target,
-        stopLoss: this.stopLoss,
-        date: this.date,
-      };
-      await axios
-        .post("/stock", formData)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.loading = false;
+    createCall() {
+      console.log(this.company);
+      console.log(this.callType);
+      console.log(this.price);
+      console.log(this.target);
+      console.log(this.stopLoss);
+      console.log(this.date);
     },
   },
 };
