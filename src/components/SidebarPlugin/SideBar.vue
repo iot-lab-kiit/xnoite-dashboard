@@ -46,10 +46,10 @@
             <div class="dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
-            <router-link to="/profile" class="dropdown-item">
+            <!-- <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
-            </router-link>
+            </router-link> -->
             <!-- <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-settings-gear-65"></i>
               <span>Settings</span>
@@ -58,15 +58,15 @@
               <i class="ni ni-calendar-grid-58"></i>
               <span>Activity</span>
             </router-link> -->
-            <router-link to="/profile" class="dropdown-item">
+            <router-link to="" class="dropdown-item">
               <i class="ni ni-support-16"></i>
               <span>Support</span>
             </router-link>
             <div class="dropdown-divider"></div>
-            <a href="#!" class="dropdown-item">
-              <i class="ni ni-user-run"></i>
-              <span>Logout</span>
-            </a>
+            <router-link to="" class="dropdown-item" v-on:click="logout">
+            <i class="ni ni-user-run"></i>
+            <span>Logout!</span>
+          </router-link>
           </base-dropdown>
         </ul>
       </slot>
@@ -138,7 +138,7 @@ export default {
   props: {
     logo: {
       type: String,
-      default: "img/brand/green.png",
+      default: "img/brand/logo.png",
       description: "Sidebar app logo",
     },
     autoClose: {
@@ -154,6 +154,11 @@ export default {
     };
   },
   methods: {
+    logout() {
+      console.log("logout");
+       this.$store.commit("removeToken");
+      this.$router.go(this.$router.currentRoute);
+    },
     closeSidebar() {
       this.$sidebar.displaySidebar(false);
     },

@@ -15,7 +15,7 @@
               <br />
               <div class="form-group">
                 <label for="Stop" class="form-control-label text-white"
-                  >Select Company</label
+                  >Company Name</label
                 >
                 <input
                   type="string"
@@ -143,6 +143,7 @@ export default {
         .post("/stock", formData)
         .then((response) => {
           console.log(response.data);
+          setTimeout(() => this.$router.go(this.$router.currentRoute), 500);
         })
         .catch((err) => {
           console.log(err);

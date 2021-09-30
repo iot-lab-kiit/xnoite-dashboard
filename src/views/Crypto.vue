@@ -11,19 +11,19 @@
         <div class="col-xl-8 mb-5 mb-xl-0">
           <card type="default" header-classes="bg-transparent">
             <div class="form-group mb-0">
-              <h2 class="text-white">Add Stock Call</h2>
+              <h2 class="text-white">Add Crypto Call</h2>
               <br />
               <div class="form-group">
-                  <label for="Stop" class="form-control-label text-white"
-                    >Select Company</label
-                  >
-                  <input
-                    type="string"
-                    class="form-control"
-                    id="Stop"
-                    v-model="company"
-                  />
-                </div>
+                <label for="Stop" class="form-control-label text-white"
+                  >Crypto Name</label
+                >
+                <input
+                  type="string"
+                  class="form-control"
+                  id="Stop"
+                  v-model="cryptoName"
+                />
+              </div>
               <base-input label="Select Call Type"
                 ><select
                   class="custom-select"
@@ -83,6 +83,7 @@
                 >Create Call</base-button
               >
             </div>
+            <Spinner v-show="loading"></Spinner>
           </card>
         </div>
       </div>
@@ -90,15 +91,20 @@
     <div class="container-fluid mt-7">
       <div class="row mt-5">
         <div class="col">
-          <StockTable
+          <CryptoTable
             type="dark"
             title="Current Calls (For Tommorow) "
-          ></StockTable>
+            :tableNo="0"
+          ></CryptoTable>
         </div>
       </div>
       <div class="row mt-5">
         <div class="col">
-          <StockTable type="dark" title="Past Calls"></StockTable>
+          <CryptoTable
+            type="dark"
+            title="Past Calls"
+            :tableNo="1"
+          ></CryptoTable>
         </div>
       </div>
     </div>
@@ -106,30 +112,47 @@
 </template>
 
 <script>
-import StockTable from "./Tables/StockTable.vue";
+import CryptoTable from "./Tables/CryptoTable.vue";
+import axios from "axios";
+import Spinner from "../components/Spinner.vue";
 export default {
   name: "Crypto",
   components: {
-    StockTable,
+    CryptoTable,
+    Spinner,
   },
   data() {
     return {
-      company: "",
+      cryptoName: "",
       callType: "",
       price: 0.0,
       target: 0.0,
       stopLoss: 0.0,
       date: "",
+      loading: false,
     };
   },
   methods: {
-    createCall() {
-      console.log(this.company);
-      console.log(this.callType);
-      console.log(this.price);
-      console.log(this.target);
-      console.log(this.stopLoss);
-      console.log(this.date);
+    async createCall() {
+      this.loading = true;
+      const formData = {
+        cryptoName: this.cryptoName,
+        callType: this.callType,
+        price: this.price,
+        target: this.target,
+        stopLoss: this.stopLoss,
+        date: this.date,
+      };
+      await axios
+        .post("/crypto", formData)
+        .then((response) => {
+          console.log(response.data);
+          setTimeout(() => this.$router.go(this.$router.currentRoute), 500);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.loading = false;
     },
   },
 };

@@ -69,8 +69,8 @@ export default {
   async mounted () {
     this.userCount = await this.getCount("user");
     this.stockCount = await this.getCount("stock");
-    this.cryptCount = await this.getCount("user");
-    this.newsCount = await this.getCount("user");
+    this.cryptCount = await this.getCount("crypto");
+    this.newsCount = await this.getCount("news");
   },
 };
 </script>

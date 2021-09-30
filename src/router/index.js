@@ -4,7 +4,6 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import AuthLayout from "@/layout/AuthLayout";
 
 import Dashboard from "../views/Dashboard.vue";
-import Profile from "../views/UserProfile.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Stock from "../views/Stocks.vue";
@@ -37,11 +36,6 @@ const routes = [
         path: "/news",
         name: "news",
         components: { default: News },
-      },
-      {
-        path: "/profile",
-        name: "profile",
-        components: { default: Profile },
       },
     ],
   },

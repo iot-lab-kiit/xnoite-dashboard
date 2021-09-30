@@ -17,12 +17,9 @@
       <table class="table tablesorter table-dark">
         <thead class="thead-dark">
           <tr>
-            <th>Company</th>
-            <th>Call Type</th>
-            <th>Price</th>
-            <th>Target</th>
-            <th>Stop Loss</th>
-            <th>Date</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Description</th>
             <th></th>
           </tr>
         </thead>
@@ -31,26 +28,21 @@
             <th scope="row">
               <div class="media align-items-center">
                 <div class="media-body">
-                  <span class="name mb-0 text-sm" :class="returnClass(item)">{{
-                    item.companyName
-                  }}</span>
+                  <a href="#" class="avatar rounded-circle mr-3">
+                    <img
+                      alt="Image placeholder"
+                      style="width: 50px; height: 50px"
+                      :src="item.photourl"
+                    />
+                  </a>
                 </div>
               </div>
             </th>
             <td :class="returnClass(item)">
-              {{ item.callType }}
+              {{ item.title }}
             </td>
             <td :class="returnClass(item)">
-              {{ item.price }}
-            </td>
-            <td :class="returnClass(item)">
-              {{ item.target }}
-            </td>
-            <td :class="returnClass(item)">
-              {{ item.stopLoss }}
-            </td>
-            <td :class="returnClass(item)">
-              {{ item.date }}
+              {{ item.description }}
             </td>
 
             <td class="text-right">
@@ -66,8 +58,8 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                 </template>
-                <a class="dropdown-item" @click="del(item,item._id)"
-                  >Delete Now!</a
+                <a class="dropdown-item" @click="deleteNews(item, item._id)"
+                  >Delete</a
                 >
               </base-dropdown>
             </td>
@@ -92,7 +84,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "StockTable",
+  name: "NewsTable",
   props: {
     type: {
       type: String,
@@ -105,53 +97,40 @@ export default {
       deleteLoader: false,
       tableData: [],
       page: 0,
-      max : 50,
+      max: 50,
       perpagelimit: 5,
     };
   },
   methods: {
-    async del(item, id) {
-      if (confirm("Do you want to delete the selected Call ?")) {
-      await axios
-        .delete(`/stock/${id}`)
-        .then((response) => {
-          const index = this.tableData.indexOf(item);
-          if (index > -1) {
-            this.tableData.splice(index, 1);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    async deleteNews(item, id) {
+      if (confirm("Do you want to delete the selected news ?")) {
+        await axios
+          .delete(`/news/${id}`)
+          .then((response) => {
+            console.log(response.data);
+            const index = this.tableData.indexOf(item);
+            if (index > -1) {
+              this.tableData.splice(index, 1);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
     pagechange(d) {
       this.page = d;
-      if (!this.tableNo) {
-        this.getCurrentStocksByCount(
-          "/stock/current/count/",
-          (d - 1 ) * this.perpagelimit,
-          this.perpagelimit
-        );
-      } else {
-        this.getCurrentStocksByCount(
-          "/stock/past/count/",
-         (d - 1 ) * this.perpagelimit,
-          this.perpagelimit
-        );
-      }
+      this.getCurrentCryptoByCount(
+        "/news/count/",
+        (d - 1) * this.perpagelimit,
+        this.perpagelimit
+      );
     },
     returnClass(item) {
       return item.blocked ? "text-danger" : "text-white";
     },
-    async getCurrentStocksByCount(link, skip = 0, limit = 5) {
-      const currdate = new Date().getDate();
-      var currMonth = new Date().getMonth() + 1;
-      currMonth = "0" + currMonth;
-      const date =
-        new Date().getFullYear() + "-" + currMonth.slice(-2) + "-" + currdate;
+    async getNewsByCount(link, skip = 0, limit = 10) {
       const formData = {
-        date: date,
         skip: skip,
         limit: limit,
       };
@@ -166,12 +145,7 @@ export default {
     },
   },
   beforeMount() {
-    this.page = 1;
-    if (!this.tableNo) {
-      this.getCurrentStocksByCount("/stock/current/count/", 0, this.perpagelimit);
-    } else {
-      this.getCurrentStocksByCount("/stock/past/count/", 0, this.perpagelimit);
-    }
+    this.getNewsByCount("/news/count/", 0, 10);
   },
 };
 </script>

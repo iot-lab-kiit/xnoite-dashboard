@@ -7,26 +7,32 @@ export default createStore({
     isMinimized: false,
     token:""
   },
+  getters: {
+    tokenFetch: state => {
+      return state.token;
+    }
+  },
   mutations: {    
     initializeStore(state) {
       if (localStorage.getItem('showSidebar')) {
         state.showSidebar = localStorage.getItem('showSidebar') == 'true' ? true : false;
       } else {
-        state.showSidebar = true
+        state.showSidebar = true;
       }
       if (localStorage.getItem('token')) {
         state.token = localStorage.getItem('token');
       } else {
         state.token = '';
       }
+      // console.log(state.token);
     },
     setToken(state, token) {
       state.token = token
-      state.isAuthenticated = true
+      // state.isAuthenticated = true
     },
     removeToken(state) {
       state.token = ''
-      state.isAuthenticated = false
+      // state.isAuthenticated = false
     },
     displaySidebar(state,value) {
       localStorage.setItem('showSidebar', value);

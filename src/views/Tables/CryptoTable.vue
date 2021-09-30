@@ -32,7 +32,7 @@
               <div class="media align-items-center">
                 <div class="media-body">
                   <span class="name mb-0 text-sm" :class="returnClass(item)">{{
-                    item.companyName
+                    item.cryptoName
                   }}</span>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                   </a>
                 </template>
-                <a class="dropdown-item" @click="del(item,item._id)"
+                <a class="dropdown-item" @click="del(item, item._id)"
                   >Delete Now!</a
                 >
               </base-dropdown>
@@ -92,7 +92,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "StockTable",
+  name: "CryptoTable",
   props: {
     type: {
       type: String,
@@ -105,38 +105,38 @@ export default {
       deleteLoader: false,
       tableData: [],
       page: 0,
-      max : 50,
+      max: 50,
       perpagelimit: 5,
     };
   },
   methods: {
     async del(item, id) {
       if (confirm("Do you want to delete the selected Call ?")) {
-      await axios
-        .delete(`/stock/${id}`)
-        .then((response) => {
-          const index = this.tableData.indexOf(item);
-          if (index > -1) {
-            this.tableData.splice(index, 1);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        await axios
+          .delete(`/stock/${id}`)
+          .then((response) => {
+            const index = this.tableData.indexOf(item);
+            if (index > -1) {
+              this.tableData.splice(index, 1);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
     pagechange(d) {
       this.page = d;
       if (!this.tableNo) {
-        this.getCurrentStocksByCount(
-          "/stock/current/count/",
-          (d - 1 ) * this.perpagelimit,
+        this.getCurrentCryptoByCount(
+          "/crypto/current/count/",
+          (d - 1) * this.perpagelimit,
           this.perpagelimit
         );
       } else {
-        this.getCurrentStocksByCount(
-          "/stock/past/count/",
-         (d - 1 ) * this.perpagelimit,
+        this.getCurrentCryptoByCount(
+          "/crypto/past/count/",
+          (d - 1) * this.perpagelimit,
           this.perpagelimit
         );
       }
@@ -144,7 +144,7 @@ export default {
     returnClass(item) {
       return item.blocked ? "text-danger" : "text-white";
     },
-    async getCurrentStocksByCount(link, skip = 0, limit = 5) {
+    async getCurrentCryptoByCount(link, skip = 0, limit = 10) {
       const currdate = new Date().getDate();
       var currMonth = new Date().getMonth() + 1;
       currMonth = "0" + currMonth;
@@ -166,11 +166,10 @@ export default {
     },
   },
   beforeMount() {
-    this.page = 1;
     if (!this.tableNo) {
-      this.getCurrentStocksByCount("/stock/current/count/", 0, this.perpagelimit);
+      this.getCurrentCryptoByCount("/crypto/current/count/", 0, 10);
     } else {
-      this.getCurrentStocksByCount("/stock/past/count/", 0, this.perpagelimit);
+      this.getCurrentCryptoByCount("/crypto/past/count/", 0, 10);
     }
   },
 };
