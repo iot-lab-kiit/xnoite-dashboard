@@ -19,7 +19,7 @@
           <tr>
             <th>Image</th>
             <th>Title</th>
-            <th>Description</th>
+            <!-- <th>Description</th> -->
             <th></th>
           </tr>
         </thead>
@@ -41,9 +41,9 @@
             <td :class="returnClass(item)">
               {{ item.title }}
             </td>
-            <td :class="returnClass(item)">
+            <!-- <td :class="returnClass(item)">
               {{ item.description }}
-            </td>
+            </td> -->
 
             <td class="text-right">
               <base-dropdown class="dropdown" position="right">

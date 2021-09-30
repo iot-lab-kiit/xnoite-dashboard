@@ -113,7 +113,7 @@ export default {
       };
       if (!this.errors.length) {
         await axios
-          .post("/auth/signin", formData)
+          .post("/auth/", formData)
           .then((Response) => {
             this.signupMessage = Response.data.message;
             this.success = true;
