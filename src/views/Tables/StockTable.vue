@@ -105,8 +105,8 @@ export default {
       deleteLoader: false,
       tableData: [],
       page: 0,
-      max : 50,
-      perpagelimit: 5,
+      max : 500,
+      perpagelimit: 10,
     };
   },
   methods: {
@@ -145,11 +145,15 @@ export default {
       return item.blocked ? "text-danger" : "text-white";
     },
     async getCurrentStocksByCount(link, skip = 0, limit = 5) {
-      const currdate = new Date().getDate();
-      var currMonth = new Date().getMonth() + 1;
-      currMonth = "0" + currMonth;
+      var current = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+      var currMonth = current.getMonth() + 1;
       const date =
-        new Date().getFullYear() + "-" + currMonth.slice(-2) + "-" + currdate;
+        current.getFullYear() +
+        "-" +
+        String(currMonth).padStart(2, "0") +
+        "-" +
+        String(current.getDate()).padStart(2, "0");
+      console.log(date);
       const formData = {
         date: date,
         skip: skip,

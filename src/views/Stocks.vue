@@ -99,7 +99,7 @@
       </div>
       <div class="row mt-5">
         <div class="col">
-          <StockTable type="dark" title="Past Calls"
+          <StockTable type="dark" title="Others"
             :tableNo=1></StockTable>
         </div>
       </div>

@@ -102,7 +102,7 @@
         <div class="col">
           <CryptoTable
             type="dark"
-            title="Past Calls"
+            title="Others"
             :tableNo="1"
           ></CryptoTable>
         </div>
