@@ -20,8 +20,26 @@
                 <input
                   type="string"
                   class="form-control"
-                  id="Stop"
+                  id="title"
                   v-model="title"
+                />
+                <label for="Stop" class="form-control-label text-white"
+                  >News Source</label
+                >
+                <input
+                  type="string"
+                  class="form-control"
+                  id="source"
+                  v-model="source"
+                />
+                <label for="Stop" class="form-control-label text-white"
+                  >News Source Link</label
+                >
+                <input
+                  type="string"
+                  class="form-control"
+                  id="link"
+                  v-model="link"
                 />
                 <div class="row">
                   <div class="col-md-12">
@@ -57,8 +75,12 @@
                   @change="PhotoUrl"
                 />
               </div>
-              <base-button type="primary" class="my-4" v-on:click="AddNews" v-show="!loading"
-                >Create Call</base-button
+              <base-button
+                type="primary"
+                class="my-4"
+                v-on:click="AddNews"
+                v-show="!loading"
+                >Create News</base-button
               >
               <div v-show="loading">
                 <loader v-show="loading" /> {{ loadPercentage }}
@@ -92,9 +114,12 @@ export default {
     return {
       title: "",
       description: "",
+      source: "",
+      link: "",
       files: [],
+      errors: [],
       loading: false,
-      loadPercentage: ""
+      loadPercentage: "",
     };
   },
   methods: {
@@ -135,6 +160,8 @@ export default {
           "https://xonitestorage.blob.core.windows.net/news/" +
           dpfilename +
           ".png",
+        source: this.source,
+        link: this.link,
       };
       console.log(formData);
       await axios
@@ -151,14 +178,6 @@ export default {
         });
       this.loadPercentage = "AudioBook Added succesfully";
       this.loading = false;
-    },
-    createCall() {
-      console.log(this.company);
-      console.log(this.callType);
-      console.log(this.price);
-      console.log(this.target);
-      console.log(this.stopLoss);
-      console.log(this.date);
     },
   },
 };

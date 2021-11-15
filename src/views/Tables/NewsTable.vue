@@ -19,7 +19,7 @@
           <tr>
             <th>Image</th>
             <th>Title</th>
-            <!-- <th>Description</th> -->
+            <th>Source</th>
             <th></th>
           </tr>
         </thead>
@@ -40,6 +40,9 @@
             </th>
             <td :class="returnClass(item)">
               {{ item.title }}
+            </td>
+            <td :class="returnClass(item)">
+              {{ item.source }}
             </td>
             <!-- <td :class="returnClass(item)">
               {{ item.description }}
